@@ -1,0 +1,8 @@
+- id: markdown-detect-nonref-links
+  name: Markdown non-ref links
+  description: |
+    This pre-commit hook detects markdown files that contain non-ref link
+    types.
+  entry: tbd
+  language: python
+  files: '*.md'
