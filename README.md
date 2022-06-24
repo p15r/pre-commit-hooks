@@ -9,7 +9,7 @@ Heavily opinionated [pre-commit][precommit] hooks I deem useful.
 ## Using pre-commit-hooks
 Add this to your `.pre-commit-config.yaml`:
 ```yaml
-- repo: git@github.com:p15r/pre-commit-hooks.git
+- repo: https://github.com/p15r/pre-commit-hooks.git
   rev: v0.1.0
   hooks:
   - id: markdown-detect-nonref-links

@@ -1,5 +1,6 @@
 repos:
-  - repo: git@github.com:p15r/pre-commit-hooks.git
+  - repo: https://github.com/p15r/pre-commit-hooks.git
     rev: v0.1.0
     hooks:
     - id: markdown-detect-nonref-links
+      exclude: ^tests/harness
