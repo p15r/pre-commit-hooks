@@ -19,19 +19,23 @@ def main(argv: Sequence[str] | None = None) -> int:
         print(f'Checking {filename}...')
 
         with open(filename, 'r') as f_handle:
-            md = f_handle.readlines()
+            rego = f_handle.readlines()
 
         line_no = 0
-        for line in md:
+        for line in rego:
             line_no += 1
-            search = re.search(r'[\!]?\[.*\]\([^#mailto\:].*\)', line)
+            search = re.search(r'(\!\=|\=\=)[\s]?(true|false)', line)
             if search:
                 start_c, end_c = search.span()
-                if end_c - start_c > 40:
-                    end_c = start_c + 40
+                if start_c < 10:
+                    start_c = 0
+                else:
+                    start_c -= 10
+                if end_c - start_c > 30:
+                    end_c = start_c + 30
                 print(
-                    f'  - Non-ref link on line {line_no}: '
-                    f'{line[start_c: end_c]}...',
+                    f'  - Unsafe boolean comparison {line_no}: '
+                    f'...{line[start_c: end_c].strip()}...',
                     file=sys.stderr
                 )
                 ret_val = 1
