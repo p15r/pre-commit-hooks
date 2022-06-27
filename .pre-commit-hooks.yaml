@@ -6,3 +6,11 @@
   entry: markdown-detect-nonref-links
   language: python
   files: '\.md$'
+- id: rego-unsafe-boolean-comparison
+  name: Checking for unsafe boolean comparison in Rego
+  description: |
+    This pre-commit hook detects unsafe boolean comparisons in Rego that
+    could potential cause false-positive and false-negative alerts.
+  entry: rego-unsafe-boolean-comparison
+  language: python
+  files: '\.rego$'
