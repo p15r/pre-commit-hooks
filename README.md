@@ -17,6 +17,14 @@ Add this to your `.pre-commit-config.yaml`:
   hooks:
   - id: markdown-detect-nonref-links
   - id: rego-unsafe-boolean-comparison
+  - id: dockerfile-multiline-cmds
+```
+
+## Development
+* Use `try-repo` for fast feedback loop:
+```bash
+cd dummyrepo/
+pre-commit try-repo ../pre-commit-hooks/ --verbose
 ```
 
 [gh_badge]: https://github.com/p15r/pre-commit-hooks/actions/workflows/check.yml/badge.svg

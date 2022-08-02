@@ -30,9 +30,9 @@ deny_unsafe[msg] {
     some name
     computers := input
     computer := computers[name]
-    
+
     is_encryption_disabled(computer)
-    
+
     msg := sprintf("%s has full disk encryption disabled", [name])
 }
 
