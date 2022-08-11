@@ -6,10 +6,14 @@ import sys
 from typing import Sequence
 
 
+MAX_OUTPUT_CMD_LENGTH = 40
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument('filenames', nargs='*')
     args = parser.parse_args(argv)
+    issue_detected = False
 
     ret_val = 0
 
@@ -22,17 +26,32 @@ def main(argv: Sequence[str] | None = None) -> int:
         line_no = 0
         for line in md:
             line_no += 1
-            search = re.search(r'[\!]?\[.*\]\([^#mailto\:].*\)', line)
+            line = line.strip().replace('\n', '')
+            search = re.search(r'.*&& \\$', line)
             if search:
+                issue_detected = True
+                dots = ''
                 start_c, end_c = search.span()
-                if end_c - start_c > 40:
-                    end_c = start_c + 40
+                if end_c - start_c > MAX_OUTPUT_CMD_LENGTH:
+                    start_c = end_c - MAX_OUTPUT_CMD_LENGTH
+                    dots = '...'
+
                 print(
-                    f'  - Non-ref link on line {line_no}: '
-                    f'{line[start_c: end_c]}...',
+                    f'  - multi-line command on line {line_no}: '
+                    f'{dots}'
+                    f'{line[start_c:]}',
                     file=sys.stderr
                 )
                 ret_val = 1
+
+    if issue_detected:
+        remediation = '''\n  Change to format:
+    RUN : \\
+        && ls \\
+        && ls -lha \\
+        && :'''
+
+        print(remediation)
 
     return ret_val
 

@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
-TOX_SETUP="r -vv --notest"
-TOX_RUN="r --skip-pkg-install"
+set -euxo pipefail
+
+TOX_SETUP="-r -vv --notest"
+TOX_RUN="-r --skip-pkg-install"
 
 PY_VER=$(
     python -c \
