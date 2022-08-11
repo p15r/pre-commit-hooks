@@ -8,20 +8,22 @@ Heavily opinionated [pre-commit][precommit] hooks I deem useful.
 | ---- | ---- |
 |`markdown-detect-nonref-links`|Detects non-ref [links][mdlinks] in Markdown|
 |`rego-unsafe-boolean-comparison`|Detects unsafe boolean [comparison][regobool] in Rego. For fix, see [harness/][safebool]|
+|`dockerfile-multiline-cmds`|Detects suboptimal use of multiline commands in Dockerfiles|
 
 ## Using pre-commit-hooks
 Add this to your `.pre-commit-config.yaml`:
 ```yaml
 - repo: https://github.com/p15r/pre-commit-hooks.git
-  rev: v0.2.0
+  rev: v0.3.0
   hooks:
   - id: markdown-detect-nonref-links
   - id: rego-unsafe-boolean-comparison
   - id: dockerfile-multiline-cmds
 ```
+(run `pre-commit autoupdate` for latest hooks)
 
 ## Development
-* Use `try-repo` for fast feedback loop:
+* Use the `try-repo` command for fast feedback loop:
 ```bash
 cd dummyrepo/
 pre-commit try-repo ../pre-commit-hooks/ --verbose
