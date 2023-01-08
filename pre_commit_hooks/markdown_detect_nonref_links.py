@@ -22,7 +22,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         line_no = 0
         for line in md:
             line_no += 1
-            search = re.search(r'[\!]?\[.*\]\([^#mailto\:].*\)', line)
+            search = re.search(r'\[.*\]\((?!mailto\:).*\)', line)
             if search:
                 start_c, end_c = search.span()
                 if end_c - start_c > 40:
