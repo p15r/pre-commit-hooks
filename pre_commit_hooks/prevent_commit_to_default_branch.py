@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse
 import re
 import shlex
-import subprocess   # nosec: B404
+import subprocess  # nosec: B404
 import sys
 from typing import TYPE_CHECKING
 
@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 
 
 def _run_cmd(cmd: str, suppress_error: str = '') -> tuple[bool, str]:
-    proc = subprocess.Popen(    # noqa: S603 # nosec: B603
+    proc = subprocess.Popen(  # noqa: S603 # nosec: B603
         shlex.split(cmd),
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,

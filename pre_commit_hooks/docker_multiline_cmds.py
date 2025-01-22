@@ -3,8 +3,11 @@ from __future__ import annotations
 import argparse
 import re
 import sys
-from typing import Sequence
+from pathlib import Path
+from typing import TYPE_CHECKING
 
+if TYPE_CHECKING:
+    from collections.abc import Sequence
 
 MAX_OUTPUT_CMD_LENGTH = 40
 
@@ -20,12 +23,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     for filename in args.filenames:
         print(f'Checking {filename}...')
 
-        with open(filename, 'r') as f_handle:
+        with Path.open(filename) as f_handle:
             md = f_handle.readlines()
 
-        line_no = 0
-        for line in md:
-            line_no += 1
+        for line_no, line in enumerate(md, start=1):
             line = line.strip().replace('\n', '')
             search = re.search(r'.*&& \\$', line)
             if search:
@@ -40,16 +41,16 @@ def main(argv: Sequence[str] | None = None) -> int:
                     f'  - multi-line command on line {line_no}: '
                     f'{dots}'
                     f'{line[start_c:]}',
-                    file=sys.stderr
+                    file=sys.stderr,
                 )
                 ret_val = 1
 
     if issue_detected:
-        remediation = '''\n  Change to format:
+        remediation = """\n  Change to format:
     RUN : \\
         && ls \\
         && ls -lha \\
-        && :'''
+        && :"""
 
         print(remediation)
 
