@@ -17,9 +17,14 @@ if TYPE_CHECKING:
 #   `# nosec` comments
 
 
-def _run_cmd(cmd: str, suppress_error: str = '') -> tuple[bool, str]:
+def _run_cmd(
+    cmd: str,
+    repo: str,
+    suppress_error: str = '',
+) -> tuple[bool, str]:
     proc = subprocess.Popen(  # noqa: S603 # nosec: B603
         shlex.split(cmd),
+        cwd=repo,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
     )
@@ -32,23 +37,24 @@ def _run_cmd(cmd: str, suppress_error: str = '') -> tuple[bool, str]:
                 f'Failed to get current branch. Command: "{cmd}". '
                 f'Return code {proc.returncode}. '
                 f'Stderr: "{stderr}".',
+                file=sys.stderr,
             )
         return False, stderr
     return True, stdout
 
 
-def _get_origins() -> tuple[bool, list[str]]:
-    ok, origins = _run_cmd('git remote')
+def _get_origins(repo: str) -> tuple[bool, list[str]]:
+    ok, origins = _run_cmd('git remote', repo)
     if not ok:
         return False, []
     return True, [o.strip() for o in origins.split('\n')]
 
 
-def _get_branch_name(default_branch_raw: str, origin: str, repo: str) -> str:
-    match = re.search(rf'{origin}[/]?(.*){repo}', default_branch_raw)
+def _get_branch_name(default_branch_raw: str, origin: str) -> str:
+    match = re.search(rf'{origin}[/]?(.*)', default_branch_raw)
     if not match or len(match.groups()) != 1:
         print(
-            f'Failed to parse default branch from "{default_branch_raw}"',
+            f'Failed to parse branch from "{default_branch_raw}"',
             file=sys.stderr,
         )
         return ''
@@ -57,28 +63,32 @@ def _get_branch_name(default_branch_raw: str, origin: str, repo: str) -> str:
 
 def main(argv: Sequence[str] = '.') -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument('repo')
+    parser.add_argument('repo', nargs='*')
     args = parser.parse_args(argv)
+    repo = ''.join(args.repo)
 
     ok, current_branch_raw = _run_cmd(
-        f'git rev-parse --abbrev-ref HEAD {args.repo}',
+        'git rev-parse --abbrev-ref HEAD',
+        repo,
     )
     if not ok:
         return 1
     current_branch = _get_branch_name(
         current_branch_raw.replace('\n', ''),
         '',
-        args.repo,
     )
+    if not current_branch:
+        return 1
 
-    ok, origins = _get_origins()
+    ok, origins = _get_origins(repo)
     if not ok:
         return 1
 
     for origin in origins:
         suppress_error = 'unknown revision or path not in the working tree'
         ok, default_branch_raw = _run_cmd(
-            f'git rev-parse --abbrev-ref {origin}/HEAD {args.repo}',
+            f'git rev-parse --abbrev-ref {origin}/HEAD',
+            repo,
             suppress_error,
         )
         if not ok and suppress_error in default_branch_raw:
@@ -89,12 +99,12 @@ def main(argv: Sequence[str] = '.') -> int:
         default_branch = _get_branch_name(
             default_branch_raw.replace('\n', ''),
             origin,
-            args.repo,
         )
         if current_branch == default_branch:
             print(
                 f'Do not commit to default branch "{default_branch}" '
                 f'on origin "{origin}".',
+                file=sys.stderr,
             )
             return 1
     return 0
