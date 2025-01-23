@@ -1,6 +1,7 @@
 import shlex
 import shutil
 import subprocess
+import sys
 import tempfile
 from collections.abc import Generator
 
@@ -11,10 +12,15 @@ from pre_commit_hooks.prevent_commit_to_default_branch import main
 
 @pytest.fixture
 def repo_dir() -> str:
-    repo_dir = tempfile.TemporaryDirectory(
-        prefix='pre-commit-hook-prevent-commit',
-        delete=False,
-    )
+    if sys.version_info < (3, 12):
+        repo_dir = tempfile.TemporaryDirectory(
+            prefix='pre-commit-hook-prevent-commit',
+        )
+    else:
+        repo_dir = tempfile.TemporaryDirectory(
+            prefix='pre-commit-hook-prevent-commit',
+            delete=False,
+        )
     return repo_dir.name
 
 
