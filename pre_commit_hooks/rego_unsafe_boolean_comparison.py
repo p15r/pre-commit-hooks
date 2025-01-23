@@ -3,7 +3,11 @@ from __future__ import annotations
 import argparse
 import re
 import sys
-from typing import Sequence
+from pathlib import Path
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from collections.abc import Sequence
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -16,12 +20,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     for filename in args.filenames:
         print(f'Checking {filename}...')
 
-        with open(filename, 'r') as f_handle:
+        with Path.open(filename) as f_handle:
             rego = f_handle.readlines()
 
-        line_no = 0
-        for line in rego:
-            line_no += 1
+        for line_no, line in enumerate(rego, start=1):
             search = re.search(r'(\!\=|\=\=)[\s]?(true|false)', line)
             if search:
                 start_c, end_c = search.span()
@@ -33,8 +35,8 @@ def main(argv: Sequence[str] | None = None) -> int:
                     end_c = start_c + 30
                 print(
                     f'  - Unsafe boolean comparison {line_no}: '
-                    f'...{line[start_c: end_c].strip()}...',
-                    file=sys.stderr
+                    f'...{line[start_c:end_c].strip()}...',
+                    file=sys.stderr,
                 )
                 ret_val = 1
 

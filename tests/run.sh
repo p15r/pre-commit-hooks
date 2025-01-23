@@ -21,11 +21,11 @@ if [[ $PY_VER_MINOR == 6 ]]; then
     TOX_BIN=$(which tox4)
 
     $TOX_BIN $TOX_SETUP
-    $TOX_BIN $TOX_RUN
+    $TOX_BIN $TOX_RUN -- "${@}"
     exit $?
 fi
 
 TOX_BIN=$(which tox)
 $TOX_BIN $TOX_SETUP
-$TOX_BIN $TOX_RUN
+$TOX_BIN $TOX_RUN -- "${@}"
 exit $?

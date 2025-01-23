@@ -1,0 +1,104 @@
+line-length = 79
+
+[lint]
+select = [
+  # pycodestyle
+  'E',
+  # Pyflakes
+  'F',
+  # isort
+  'I',
+  # pyupgrade
+  'UP',
+  # flake8-bugbear
+  'B',
+  # flake8-simplify
+  'SIM',
+  # flake8-annotations
+  'ANN',
+  # flake8-async
+  'ASYNC',
+  # flake8-bandit
+  'S',
+  # flake8-boolean-trap
+  'FBT',
+  # flake8-bugbear
+  'B',
+  # flake8-builtins
+  'A',
+  # flake8-commas
+  'COM',
+  # flake8-comprehensions
+  'C4',
+  # flake8-datetimez
+  'DTZ',
+  # flake8-debugger
+  'T10',
+  # flake8-django
+  'DJ',
+  # flake8-errmsg
+  'EM',
+  # flake8-executable
+  'EXE',
+  # flake8-future-annotations
+  'FA',
+  # flake8-implicit-str-concat
+  'ISC',
+  # flake8-import-conventions
+  'ICN',
+  # flake8-logging
+  'LOG',
+  # flake8-logging-format
+  'G',
+  # flake8-pie
+  'PIE',
+  # flake8-pytest-style
+  'PT',
+  # flake8-raise
+  'RSE',
+  # flake8-return
+  'RET',
+  # flake8-tidy-imports
+  'TID',
+  # flake8-type-checking
+  'TCH',
+  # flake8-unused-arguments
+  'ARG',
+  # flake8-use-pathlib
+  'PTH',
+  # flake8-todos
+  'TD',
+  # pandas-vet
+  'PD',
+  # pygrep-hooks
+  'PGH',
+  # NumPy-specific rules
+  'NPY',
+  # FastAPI
+  'FAST',
+  # refurb
+  'FURB',
+  # pydoclint
+  'DOC',
+  # Ruff-specific rules
+  'RUF',
+  # pep8-naming
+  'N',
+  # pydocstyle
+  'D',
+]
+
+ignore = [
+  'D100',           # missing docstring
+  'D101',           # missing docstring
+  'D102',           # missing docstring
+  'D103',           # missing docstring
+  'D104',           # missing docstring
+  'D105',           # missing docstring
+  'D106',           # missing docstring
+  'D107',           # missing docstring
+  'TD003',          # missing TODO link on next line
+]
+
+[format]
+quote-style = 'single'
