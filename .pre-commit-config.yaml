@@ -26,8 +26,9 @@ repos:
     hooks:
     -   id: codespell
 -   repo: https://github.com/p15r/pre-commit-hooks.git
-    rev: v0.3.1
+    rev: v0.4.0
     hooks:
+    -   id: prevent-commit-to-default-branch
     -   id: markdown-detect-nonref-links
         exclude: |
             (?x)^(
