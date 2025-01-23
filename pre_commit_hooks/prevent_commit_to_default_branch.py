@@ -3,18 +3,12 @@ from __future__ import annotations
 import argparse
 import re
 import shlex
-import subprocess  # nosec: B404
+import subprocess
 import sys
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
-
-# TODO(patrick): update `.python-requires` (and other places) that require
-#   minimum Python version with this syntax ("|" in type hints,
-#   or "tuple" in type hints)
-# TODO(patrick): update pre-commit config of this repo, then remove the
-#   `# nosec` comments
 
 
 def _run_cmd(
@@ -22,7 +16,7 @@ def _run_cmd(
     repo: str,
     suppress_error: str = '',
 ) -> tuple[bool, str]:
-    proc = subprocess.Popen(  # noqa: S603 # nosec: B603
+    proc = subprocess.Popen(  # noqa: S603
         shlex.split(cmd),
         cwd=repo,
         stdout=subprocess.PIPE,
