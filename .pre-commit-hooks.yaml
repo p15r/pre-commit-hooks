@@ -33,3 +33,10 @@
   always_run: true
   stages: [pre-commit]
   fail_fast: true
+- id: prevent-returning-fastapi-httpexceptions
+  name: Prevent returning FastAPI HTTPExceptions
+  description: |
+    FastAPI HTTPException must be raised to indicate an error to the consumer. If returned, they become JSON-wrapped HTTP 200 responses.
+  language: python
+  entry: prevent-returning-fastapi-httpexceptions
+  types: ['python']
