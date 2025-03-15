@@ -92,7 +92,7 @@ def find_http_exception_returns(file_path: str) -> list[int]:
 
             # --- CASE A: Direct call in the return statement ---
             if isinstance(ret_expr, nodes.Call) and is_call_to_known_exception(
-                ret_expr
+                ret_expr,
             ):
                 lines_with_exceptions.append(node.lineno)
                 continue
@@ -101,7 +101,8 @@ def find_http_exception_returns(file_path: str) -> list[int]:
             if isinstance(ret_expr, nodes.Name):
                 scope_node = node.scope()
                 if scope_node and is_variable_instance_of_known_exception(
-                    ret_expr, scope_node
+                    ret_expr,
+                    scope_node,
                 ):
                     lines_with_exceptions.append(node.lineno)
 
