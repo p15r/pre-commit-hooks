@@ -1,8 +1,11 @@
 from __future__ import annotations
 
+# TODO(patrick): this detrects ast.Call of exception type,
+# what if it's an already instantiated var?
 import argparse
 import ast
 import sys
+from pathlib import Path
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -10,30 +13,41 @@ if TYPE_CHECKING:
 
 
 class HTTPExceptionVisitor(ast.NodeVisitor):
-    def __init__(self):
-        self.http_exception_returns = []
+    def __init__(self) -> None:
+        self.http_exception_returns: list[int] = []
 
-    def visit_FunctionDef(self, node):
+    def visit_FunctionDef(self, node: ast.FunctionDef) -> None:  # noqa: N802
         self._process_function(node)
 
-    def visit_AsyncFunctionDef(self, node):
+    def visit_AsyncFunctionDef(  # noqa: N802
+        self,
+        node: ast.AsyncFunctionDef,
+    ) -> None:
         self._process_function(node)
 
-    def _process_function(self, node):
+    def _process_function(
+        self,
+        node: ast.FunctionDef | ast.AsyncFunctionDef,
+    ) -> None:
         for stmt in ast.walk(node):
-            if isinstance(stmt, ast.Return) and isinstance(
-                stmt.value, ast.Call
-            ):
-                if getattr(stmt.value.func, 'id', None) in [
+            if (
+                isinstance(stmt, ast.Return)
+                and isinstance(
+                    stmt.value,
+                    ast.Call,
+                )
+                and getattr(stmt.value.func, 'id', None)
+                in [
                     'AFKException',
                     'HTTPException',
                     'WebSocketException',
-                ]:
-                    self.http_exception_returns.append(stmt.lineno)
+                ]
+            ):
+                self.http_exception_returns.append(stmt.lineno)
 
 
-def find_http_exception_returns(file_path: str) -> list[str]:
-    with open(file_path, encoding='utf-8') as f:
+def find_http_exception_returns(file_path: str) -> list[int]:
+    with Path(file_path).open(encoding='utf-8') as f:
         tree = ast.parse(f.read(), filename=file_path)
     visitor = HTTPExceptionVisitor()
     visitor.visit(tree)
@@ -51,8 +65,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         for line_no in http_exception_returns:
             ret_val = 1
             print(
-                f'{target_file}:{line_no} returns HTTP exception '
-                '(instead of raising it)',
+                f'{target_file}:{line_no} returns HTTP exception, '
+                '(`raise` instead)',
                 file=sys.stderr,
             )
     return ret_val
