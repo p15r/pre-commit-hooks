@@ -14,15 +14,20 @@ if TYPE_CHECKING:
 EXCEPTION_NAMES = {'AFKException', 'HTTPException', 'WebSocketException'}
 
 
-def walk_astroid_tree(node: nodes.NodeNG):
-    """Recursively yield each node in the astroid tree (similar to node.walk() in newer versions)."""
+def walk_astroid_tree(node: nodes.NodeNG) -> nodes.NodeNG:
+    """Recursively yield each node in the astroid tree.
+
+    (similar to node.walk() in newer versions)
+    """
     yield node
+    print(f'DEBUG: {type(node)=}')
     for child in node.get_children():
+        print(f'DEBUG: {type(child)=}')
         yield from walk_astroid_tree(child)
 
 
 def is_call_to_known_exception(call_node: nodes.Call) -> bool:
-    """Check if `call_node` is a Call to any name/attribute in EXCEPTION_NAMES."""
+    """Check if Call is to any name/attribute in EXCEPTION_NAMES."""
     func = call_node.func
     if isinstance(func, nodes.Name):
         return func.name in EXCEPTION_NAMES
@@ -35,8 +40,10 @@ def chase_assignments_for_exception(
     name_node: nodes.Name,
     scope_node: nodes.Scope,
 ) -> bool:
-    """Manually chase all assignments for `name_node`. For each place `name_node` is assigned,
-    look at the right-hand side (RHS). If that RHS is:
+    """Manually chase all assignments for `name_node`.
+
+    For each place `name_node` is assigned, look at the right-hand side (RHS).
+    If that RHS is:
       - A direct call to a known exception, return True.
       - Another name, recursively chase that name as well.
       - Anything else, you can decide how to handle or ignore.
@@ -57,11 +64,12 @@ def chase_assignments_for_exception(
                 return True
 
             # Case 2: Right-hand side is another Name; chase it recursively
-            if isinstance(rhs, nodes.Name):
+            if isinstance(rhs, nodes.Name):  # noqa: SIM102
                 if chase_assignments_for_exception(rhs, scope_node):
                     return True
 
-            # You could add more "Case 3", e.g. if `rhs` is an Attribute or something else.
+            # You could add more "Case 3", e.g. if `rhs` is an Attribute or
+            # something else.
     return False
 
 
@@ -69,17 +77,21 @@ def is_variable_instance_of_known_exception(
     name_node: nodes.Name,
     current_scope: nodes.Scope,
 ) -> bool:
-    """Given a Name node, try to see if it ultimately refers to one of EXCEPTION_NAMES
-    by manually chasing the chain of assignments.
+    """Given a Name node, try to see if it refers to one of EXCEPTION_NAMES.
+
+    Do this by manually chasing the chain of assignments.
     """
     # You could also put your debug prints here if desired
     return chase_assignments_for_exception(name_node, current_scope)
 
 
 def find_http_exception_returns(file_path: str) -> list[int]:
-    """Parse `file_path` using astroid and return line numbers of Return statements that:
+    """Parse `file_path` and return line numbers of Return statements.
+
+    This is true if:
     - directly call a known exception, or
-    - return a variable that is traced (via manual chasing) to be an instance of one.
+    - return a variable that is traced (via manual chasing) to be an instance
+      of one.
     """
     code = Path(file_path).read_text(encoding='utf-8')
     module_node = astroid.parse(code, path=file_path)
@@ -120,7 +132,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         for line_no in exception_lines:
             ret_val = 1
             print(
-                f'{target_file}:{line_no} returns HTTP exception (`raise` instead)',
+                f'{target_file}:{line_no} returns HTTP exception '
+                '(`raise` instead)',
                 file=sys.stderr,
             )
     return ret_val
