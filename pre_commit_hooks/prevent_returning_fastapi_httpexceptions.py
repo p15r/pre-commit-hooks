@@ -20,9 +20,7 @@ def walk_astroid_tree(node: nodes.NodeNG) -> nodes.NodeNG:
     (similar to node.walk() in newer versions)
     """
     yield node
-    print(f'DEBUG: {type(node)=}')
     for child in node.get_children():
-        print(f'DEBUG: {type(child)=}')
         yield from walk_astroid_tree(child)
 
 
