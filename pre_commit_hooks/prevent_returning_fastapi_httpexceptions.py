@@ -1,3 +1,11 @@
+"""Scans Python files for FastAPI HTTPExceptions that are being returned.
+
+HTTPException must be raised to create HTTP responses with status code >= 400.
+If returned, they become JSON-wrapped HTTP responses with status code 200.
+
+This hook is limited to resolving return values within the same file.
+"""
+
 from __future__ import annotations
 
 import argparse

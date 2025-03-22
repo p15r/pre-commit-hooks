@@ -37,6 +37,7 @@
   name: Prevent returning FastAPI HTTPExceptions
   description: |
     FastAPI `HTTPException`s must be `raise`d to create HTTP responses with status code >= 400. If `return`ed, they become JSON-wrapped HTTP responses with status code 200.
+    This hook is limited to resolving return values within the same file.
   language: python
   entry: prevent-returning-fastapi-httpexceptions
   types: ['python']
