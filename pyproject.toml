@@ -64,6 +64,3 @@ commands = [
     ["coverage", "run", "-m", "pytest", "--capture=sys"],
     ["coverage", "report"],
 ]
-
-[tool.tox.env.gh]
-python = { 3.11 = "py311, type", 3.12 = "py312, type", 3.13 = "py313, type"}
