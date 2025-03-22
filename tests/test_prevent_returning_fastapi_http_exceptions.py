@@ -3,11 +3,11 @@ from pre_commit_hooks.prevent_returning_fastapi_httpexceptions import main
 
 def test_returning_http_exceptions(capsys):
     expected = (
-        'tests/harness/return_httpexception.py:2 returns HTTP exception '
+        'tests/harness/return_httpexception.py:10 returns HTTP exception '
         '(`raise` instead)\n'
-        'tests/harness/return_httpexception.py:8 returns HTTP exception '
+        'tests/harness/return_httpexception.py:17 returns HTTP exception '
         '(`raise` instead)\n'
-        'tests/harness/return_httpexception.py:12 returns HTTP exception '
+        'tests/harness/return_httpexception.py:22 returns HTTP exception '
         '(`raise` instead)\n'
     )
 
