@@ -36,7 +36,7 @@
 - id: prevent-returning-fastapi-httpexceptions
   name: Prevent returning FastAPI HTTPExceptions
   description: |
-    FastAPI HTTPException must be raised to indicate an error to the consumer. If returned, they become JSON-wrapped HTTP 200 responses.
+    FastAPI `HTTPException`s must be `raise`d to create HTTP responses with status code >= 400. If `return`ed, they become JSON-wrapped HTTP responses with status code 200.
   language: python
   entry: prevent-returning-fastapi-httpexceptions
   types: ['python']
