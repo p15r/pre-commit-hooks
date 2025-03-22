@@ -24,13 +24,12 @@ classifiers = [
 ]
 
 [dependency-groups]
-# `dev` dependency-group is included in `uv.lock` by default
+# the `dev` dependency-group is included in `uv.lock` by default
 dev = [
 	"tox~=4.24",
 	"coverage~=7.7",
 	"pytest~=8.3",
 	"mypy~=1.15",
-	"flake8~=7.1",
 ]
 
 [project.urls]
