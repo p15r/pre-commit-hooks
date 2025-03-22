@@ -10,17 +10,19 @@ Heavily opinionated [pre-commit][precommit] hooks I deem useful.
 |`rego-unsafe-boolean-comparison`|Detects unsafe boolean [comparison][regobool] in Rego. For fix, see [harness/][safebool]|
 |`dockerfile-multiline-cmds`|Detects suboptimal use of multiline commands in Dockerfiles|
 |`prevent-commit-to-default-branch`|Prevent commits to the default branch.|
+|`prevent-returning-fastapi-httpexceptions`|Prevent returning FastAPI HTTPExceptions|
 
 ## Using pre-commit-hooks
 Add this to your `.pre-commit-config.yaml`:
 ```yaml
 - repo: https://github.com/p15r/pre-commit-hooks.git
-  rev: v0.4.0
+  rev: v0.5.1
   hooks:
   - id: markdown-detect-nonref-links
   - id: rego-unsafe-boolean-comparison
   - id: dockerfile-multiline-cmds
   - id: prevent-commit-to-default-branch
+  - id: prevent-returning-fastapi-httpexceptions
 ```
 (run `pre-commit autoupdate` for latest hooks)
 
