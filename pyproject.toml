@@ -1,3 +1,65 @@
+[project]
+name = "pre_commit_hooks"
+description = "Pre-commit hooks"
+version = "0.5.0"
+readme = "README.md"
+authors = [
+  {name = "patrick", email = "patrick@p15r.net"},
+]
+requires-python = ">=3.11"
+dependencies = [
+    "astroid==3.3.9",    # for `prevent_returning_fastapi_httpexceptions.py`
+]
+
+license = {file = "LICENSE"}
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+]
+
+[dependency-groups]
+# the `dev` dependency-group is included in `uv.lock` by default
+dev = [
+	"tox~=4.24",
+	"coverage~=7.7",
+	"pytest~=8.3",
+	"mypy~=1.15",
+]
+
+[project.urls]
+Repository = "https://github.com/p15r/pre-commit-hooks"
+Issues = "https://github.com/p15r/pre-commit-hooks/issues"
+
+[project.entry-points."console_scripts"]
+markdown-detect-nonref-links = "pre_commit_hooks.markdown_detect_nonref_links:main"
+rego-unsafe-boolean-comparison = "pre_commit_hooks.rego_unsafe_boolean_comparison:main"
+docker-multiline-cmds = "pre_commit_hooks.docker_multiline_cmds:main"
+prevent-commit-to-default-branch = "pre_commit_hooks.prevent_commit_to_default_branch:main"
+prevent-returning-fastapi-httpexceptions = "pre_commit_hooks.prevent_returning_fastapi_httpexceptions:main"
+
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools>=76.0.0"]
 build-backend = "setuptools.build_meta"
+
+[tool.tox]
+requires=[
+]
+isolated_build = "True"
+env_list = ["py311", "py312", "py313"]
+
+[tool.tox.env_run_base]
+runner = "uv-venv-lock-runner"
+set_env = { GIT_AUTHOR_NAME = "test", GIT_COMMITTER_NAME = "test", GIT_AUTHOR_EMAIL = "test@example.com", GIT_COMMITTER_EMAIL = "test@example.com" }
+description = "Run test under {base_python}"
+allowlist_externals = ["coverage"]
+commands = [
+    ["coverage", "erase"],
+    ["coverage", "run", "-m", "pytest", "--capture=sys"],
+    ["coverage", "report"],
+]
