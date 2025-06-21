@@ -1,7 +1,7 @@
 [project]
 name = "pre_commit_hooks"
 description = "Pre-commit hooks"
-version = "0.5.0"
+version = "0.5.2"
 readme = "README.md"
 authors = [
   {name = "patrick", email = "patrick@p15r.net"},

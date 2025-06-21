@@ -19,7 +19,12 @@ from astroid import nodes
 if TYPE_CHECKING:
     from collections.abc import Sequence
 
-EXCEPTION_NAMES = {'AFKException', 'HTTPException', 'WebSocketException'}
+EXCEPTION_NAMES = {
+    'HTTPError',
+    'HTTP422Error',
+    'HTTPException',
+    'WebSocketException',
+}
 
 
 def walk_astroid_tree(node: nodes.NodeNG) -> nodes.NodeNG:

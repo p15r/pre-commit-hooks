@@ -1,4 +1,4 @@
-class AFKException(Exception):
+class HTTPError(Exception):
     ...
 
 
@@ -7,7 +7,7 @@ class HTTPException(Exception):
 
 
 def foobar():
-    raise AFKException(
+    raise HTTPError(
         status_code=500,
         message='Foobar',
     )

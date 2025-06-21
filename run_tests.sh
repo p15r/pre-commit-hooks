@@ -3,7 +3,7 @@
 set -euxo pipefail
 
 function die () {
-	echo "${1}"
+	echo "Error: ${1}"
 	exit 1
 }
 
