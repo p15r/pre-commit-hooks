@@ -1,4 +1,8 @@
-class AFKException(Exception):
+class HTTPError(Exception):
+    ...
+
+
+class HTTP422Error(Exception):
     ...
 
 
@@ -6,8 +10,12 @@ class HTTPException(Exception):
     ...
 
 
+class WebSocketException(Exception):
+    ...
+
+
 def foobar():
-    return AFKException(
+    return HTTPError(
         status_code=500,
         message='Foobar',
     )
@@ -19,4 +27,16 @@ async def foobar2():
 
 async def foobar3():
     resp = HTTPException()
+    return resp
+
+
+def foobar4():
+    return HTTP422Error(
+        status_code=500,
+        message='Foobar',
+    )
+
+
+async def foobar5():
+    resp = WebSocketException()
     return resp
