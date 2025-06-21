@@ -22,7 +22,7 @@ function is_tox_installed () {
 
 function main() {
 	is_tox_installed
-	tox -r
+	tox -r -- ${@:-}    # `tox -r -posarg` sends `-posarg` to uv
 }
 
-main
+main ${@:-}

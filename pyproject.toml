@@ -60,6 +60,6 @@ description = "Run test under {base_python}"
 allowlist_externals = ["coverage"]
 commands = [
     ["coverage", "erase"],
-    ["coverage", "run", "-m", "pytest", "--capture=sys"],
+    ["coverage", "run", "-m", "pytest", "--capture=sys", "{posargs}"],
     ["coverage", "report"],
 ]
