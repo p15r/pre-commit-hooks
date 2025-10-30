@@ -24,7 +24,7 @@
   entry: docker-multiline-cmds
   language: python
   types: ['dockerfile']
-- id: prevent-commit-to-default-branch
+- id: prevent-push-to-default-branch
   name: protect default branch
   description: |
     This pre-commit hook prevents pushing to the default branch.

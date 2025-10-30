@@ -40,7 +40,7 @@ Issues = "https://github.com/p15r/pre-commit-hooks/issues"
 markdown-detect-nonref-links = "pre_commit_hooks.markdown_detect_nonref_links:main"
 rego-unsafe-boolean-comparison = "pre_commit_hooks.rego_unsafe_boolean_comparison:main"
 docker-multiline-cmds = "pre_commit_hooks.docker_multiline_cmds:main"
-prevent-commit-to-default-branch = "pre_commit_hooks.prevent_commit_to_default_branch:main"
+prevent-push-to-default-branch = "pre_commit_hooks.prevent_push_to_default_branch:main"
 prevent-returning-fastapi-httpexceptions = "pre_commit_hooks.prevent_returning_fastapi_httpexceptions:main"
 
 [build-system]
