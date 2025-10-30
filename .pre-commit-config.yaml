@@ -29,7 +29,7 @@ repos:
 -   repo: https://github.com/p15r/pre-commit-hooks.git
     rev: v0.5.1
     hooks:
-    -   id: prevent-commit-to-default-branch
+    -   id: prevent-push-to-default-branch
     -   id: markdown-detect-nonref-links
         exclude: |
             (?x)^(
