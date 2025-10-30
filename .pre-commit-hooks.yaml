@@ -29,7 +29,7 @@
   description: |
     This pre-commit hook prevents pushing to the default branch.
     It should be the first hook in your pre-commit config.
-  entry: prevent-commit-to-default-branch
+  entry: prevent-push-to-default-branch
   language: python
   always_run: true
   stages: [pre-push, manual]
