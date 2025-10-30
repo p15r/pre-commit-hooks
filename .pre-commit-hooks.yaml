@@ -25,13 +25,14 @@
   language: python
   types: ['dockerfile']
 - id: prevent-commit-to-default-branch
-  name: Prevent commits to the default branch.
+  name: protect default branch
   description: |
-    This pre-commit hook aborts a commit when made against the default branch. This hook should always be the first one in your pre-commit config.
+    This pre-commit hook prevents pushing to the default branch.
+    It should be the first hook in your pre-commit config.
   entry: prevent-commit-to-default-branch
   language: python
   always_run: true
-  stages: [pre-commit]
+  stages: [pre-push, manual]
   fail_fast: true
 - id: prevent-returning-fastapi-httpexceptions
   name: Prevent returning FastAPI HTTPExceptions

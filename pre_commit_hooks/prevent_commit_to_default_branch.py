@@ -97,7 +97,7 @@ def main(argv: Sequence[str] = '.') -> int:
         if current_branch == default_branch:
             print(
                 f'Do not commit to default branch "{default_branch}" '
-                f'on origin "{origin}".',
+                f'from "{origin}".',
                 file=sys.stderr,
             )
             return 1

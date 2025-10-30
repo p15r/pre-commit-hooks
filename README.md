@@ -9,7 +9,7 @@ Heavily opinionated [pre-commit][precommit] hooks I deem useful.
 |`markdown-detect-nonref-links`|Detects non-ref [links][mdlinks] in Markdown|
 |`rego-unsafe-boolean-comparison`|Detects unsafe boolean [comparison][regobool] in Rego. For fix, see [harness/][safebool]|
 |`dockerfile-multiline-cmds`|Detects suboptimal use of multiline commands in Dockerfiles|
-|`prevent-commit-to-default-branch`|Prevent commits to the default branch.|
+|`prevent-commit-to-default-branch`|Prevent pushing to the default branch.|
 |`prevent-returning-fastapi-httpexceptions`|Prevent returning FastAPI HTTPExceptions|
 
 ## Using pre-commit-hooks
