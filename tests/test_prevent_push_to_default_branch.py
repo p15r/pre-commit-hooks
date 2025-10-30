@@ -7,18 +7,18 @@ from collections.abc import Generator
 
 import pytest  # type: ignore[import-not-found]
 
-from pre_commit_hooks.prevent_commit_to_default_branch import main
+from pre_commit_hooks.prevent_push_to_default_branch import main
 
 
 @pytest.fixture
 def repo_dir() -> str:
     if sys.version_info < (3, 12):
         repo_dir = tempfile.TemporaryDirectory(
-            prefix='pre-commit-hook-prevent-commit',
+            prefix='pre-commit-hook-prevent-push',
         )
     else:
         repo_dir = tempfile.TemporaryDirectory(
-            prefix='pre-commit-hook-prevent-commit',
+            prefix='pre-commit-hook-prevent-push',
             delete=False,
         )
     return repo_dir.name
