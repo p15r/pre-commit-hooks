@@ -35,6 +35,11 @@ pre-commit try-repo ../pre-commit-hooks/ --verbose
 ```
 Make sure that `dummyrepo` contains at least one commit.
 
+### Create Release
+* Bump package version in `pyproject.toml`
+* Update lock file using `uv lock`
+* Create new release on Github
+
 [gh_badge]: https://github.com/p15r/pre-commit-hooks/actions/workflows/check.yml/badge.svg
 [precommit]: https://pre-commit.com/
 [mdlinks]: https://daringfireball.net/projects/markdown/syntax#link
