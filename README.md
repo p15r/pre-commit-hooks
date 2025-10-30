@@ -9,7 +9,7 @@ Heavily opinionated [pre-commit][precommit] hooks I deem useful.
 |`markdown-detect-nonref-links`|Detects non-ref [links][mdlinks] in Markdown|
 |`rego-unsafe-boolean-comparison`|Detects unsafe boolean [comparison][regobool] in Rego. For fix, see [harness/][safebool]|
 |`dockerfile-multiline-cmds`|Detects suboptimal use of multiline commands in Dockerfiles|
-|`prevent-push-to-default-branch`|Prevent pushing to the default branch.|
+|`prevent-push-to-default-branch`|Prevent pushing to the default branch. Requires `pre-commit install -t pre-push` to install.|
 |`prevent-returning-fastapi-httpexceptions`|Prevent returning FastAPI HTTPExceptions|
 
 ## Using pre-commit-hooks
@@ -21,7 +21,7 @@ Add this to your `.pre-commit-config.yaml`:
   - id: markdown-detect-nonref-links
   - id: rego-unsafe-boolean-comparison
   - id: dockerfile-multiline-cmds
-  - id: prevent-push-to-default-branch
+  - id: prevent-push-to-default-branch  # Note: requires `pre-commit install -t pre-push` to install hook.
   - id: prevent-returning-fastapi-httpexceptions
 ```
 (run `pre-commit autoupdate` for latest hooks)
