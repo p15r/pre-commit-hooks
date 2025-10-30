@@ -58,7 +58,7 @@ def chase_assignments_for_exception(
       - A direct call to a known exception, return True.
       - Another name, recursively chase that name as well.
     """
-    assignments, inferred_values = scope_node.lookup(name_node.name)
+    _, inferred_values = scope_node.lookup(name_node.name)
     for inferred in inferred_values:
         if not isinstance(inferred, astroid.AssignName):
             continue
