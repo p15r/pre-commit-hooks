@@ -46,8 +46,8 @@ def _get_origins() -> tuple[bool, list[str]]:
 
 def _get_current_branch_name() -> str:
     ok, current_branch_raw = _run_cmd(
-            'git rev-parse --abbrev-ref HEAD',
-        )
+        'git rev-parse --abbrev-ref HEAD',
+    )
     if not ok:
         return ''
     current_branch = current_branch_raw.replace('\n', '')
