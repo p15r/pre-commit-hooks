@@ -1,7 +1,7 @@
 [project]
 name = "pre_commit_hooks"
 description = "Pre-commit hooks"
-version = "0.5.5"
+version = "0.5.6"
 readme = "README.md"
 authors = [
   {name = "patrick", email = "patrick@p15r.net"},
@@ -39,7 +39,7 @@ Issues = "https://github.com/p15r/pre-commit-hooks/issues"
 [project.entry-points."console_scripts"]
 markdown-detect-nonref-links = "pre_commit_hooks.markdown_detect_nonref_links:main"
 rego-unsafe-boolean-comparison = "pre_commit_hooks.rego_unsafe_boolean_comparison:main"
-docker-multiline-cmds = "pre_commit_hooks.docker_multiline_cmds:main"
+dockerfile-multiline-cmds = "pre_commit_hooks.dockerfile_multiline_cmds:main"
 prevent-push-to-default-branch = "pre_commit_hooks.prevent_push_to_default_branch:main"
 prevent-returning-fastapi-httpexceptions = "pre_commit_hooks.prevent_returning_fastapi_httpexceptions:main"
 
