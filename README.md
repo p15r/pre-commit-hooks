@@ -17,7 +17,7 @@ Add this to your `.pre-commit-config.yaml`:
 ```yaml
 repos:
 - repo: https://github.com/p15r/pre-commit-hooks.git
-  rev: v0.5.5
+  rev: v0.5.6
   hooks:
   - id: markdown-detect-nonref-links
   - id: rego-unsafe-boolean-comparison
