@@ -22,7 +22,8 @@ repos:
   - id: markdown-detect-nonref-links
   - id: rego-unsafe-boolean-comparison
   - id: dockerfile-multiline-cmds
-  - id: prevent-push-to-default-branch  # Note: requires `pre-commit install -t pre-push` to install hook.
+    # Note: requires `pre-commit install -t pre-push` to install hook.
+  - id: prevent-push-to-default-branch
   - id: prevent-returning-fastapi-httpexceptions
 ```
 (run `pre-commit autoupdate` for latest hooks)
