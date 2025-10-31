@@ -15,8 +15,9 @@ Heavily opinionated [pre-commit][precommit] hooks I deem useful.
 ## Using pre-commit-hooks
 Add this to your `.pre-commit-config.yaml`:
 ```yaml
+repos:
 - repo: https://github.com/p15r/pre-commit-hooks.git
-  rev: v0.5.1
+  rev: v0.5.5
   hooks:
   - id: markdown-detect-nonref-links
   - id: rego-unsafe-boolean-comparison
@@ -37,6 +38,7 @@ Make sure that `dummyrepo` contains at least one commit.
 
 ### Create Release
 * Bump package version in `pyproject.toml`
+* Bump `rev` in readme
 * Update lock file using `uv lock`
 * Create new release on Github
 

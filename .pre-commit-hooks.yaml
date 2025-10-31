@@ -14,14 +14,14 @@
   entry: rego-unsafe-boolean-comparison
   language: python
   files: '\.rego$'
-- id: docker-multiline-cmds
+- id: dockerfile-multiline-cmds
   name: Checking for suboptimal use of multiline commands in Dockerfiles
   description: |
     This pre-commit hook detects suboptimal use of multiline commands in
     Dockerfiles. Suboptimal in the sense that if changing them creates
     unclean git diffs.
     More information on https://www.youtube.com/watch?v=BdxdRlTnPEE
-  entry: docker-multiline-cmds
+  entry: dockerfile-multiline-cmds
   language: python
   types: ['dockerfile']
 - id: prevent-push-to-default-branch

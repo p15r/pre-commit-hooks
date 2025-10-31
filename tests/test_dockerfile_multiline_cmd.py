@@ -1,4 +1,4 @@
-from pre_commit_hooks.docker_multiline_cmds import main
+from pre_commit_hooks.dockerfile_multiline_cmds import main
 
 
 def test_failing_file():
